@@ -169,7 +169,7 @@ body {
 .hero-title {
     font-size: 4rem;
     font-weight: bold;
-    color: var(--secondary-color);
+    color: black;
     text-shadow: 0 0 20px rgba(212, 175, 55, 0.5);
     margin-bottom: 1rem;
 }
