@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>News - Heir of Gaia</title>
+    <link rel="stylesheet" href="css/style.css">
+    <style>
+        .news-grid {
+            display: flex;
+            flex-direction: column;
+            gap: 2.5rem;
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .news-card {
+            background: var(--card-bg);
+            border-radius: 10px;
+            border: 1px solid var(--border-color);
+            overflow: hidden;
+            transition: all 0.3s ease;
+        }
+
+        .news-card:hover {
+            border-color: var(--primary-color);
+            box-shadow: 0 10px 30px rgba(139, 69, 19, 0.2);
+        }
+
+        .news-card-header {
+            padding: 1.5rem 2rem 1rem;
+            border-bottom: 1px solid var(--border-color);
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+
+        .news-tag {
+            font-size: 0.75rem;
+            font-weight: bold;
+            padding: 0.25rem 0.75rem;
+            border-radius: 20px;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        .news-tag.upcoming   { background: rgba(212, 175, 55, 0.15); color: var(--secondary-color); border: 1px solid var(--secondary-color); }
+        .news-tag.donator    { background: rgba(212, 100, 200, 0.15); color: #d464c8; border: 1px solid #d464c8; }
+        .news-tag.economy    { background: rgba(76, 175, 80, 0.15); color: var(--success-color); border: 1px solid var(--success-color); }
+
+        .news-date {
+            margin-left: auto;
+            color: var(--text-secondary);
+            font-size: 0.85rem;
+        }
+
+        .news-card-body {
+            padding: 1.5rem 2rem 2rem;
+        }
+
+        .news-card-body h2 {
+            color: var(--secondary-color);
+            font-size: 1.6rem;
+            margin-bottom: 1rem;
+        }
+
+        .news-card-body p {
+            color: var(--text-secondary);
+            line-height: 1.8;
+            margin-bottom: 1rem;
+        }
+
+        .news-card-body p:last-child {
+            margin-bottom: 0;
+        }
+
+        .news-highlight {
+            background: rgba(139, 69, 19, 0.08);
+            border-left: 4px solid var(--primary-color);
+            border-radius: 0 8px 8px 0;
+            padding: 1rem 1.5rem;
+            margin: 1.2rem 0;
+        }
+
+        .news-highlight p {
+            margin: 0;
+            color: var(--text-primary);
+        }
+
+        .news-icon {
+            font-size: 1.8rem;
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="container">
+            <div class="nav-brand">Heir of Gaia</div>
+            <button class="nav-toggle" aria-label="Toggle navigation">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+            <ul class="nav-menu">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="commands.html">Commands</a></li>
+                <li><a href="ranks.html">Ranks</a></li>
+                <li><a href="news.html" class="active">News</a></li>
+                <li><a href="rules.html">Rules</a></li>
+                <li><a href="store.html">Store</a></li>
+                <li><a href="contact.html">Contact</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <main class="container page-content">
+        <h1 class="page-title">News & Upcoming Projects</h1>
+
+        <div class="store-intro">
+            <p>Stay up to date with what we're working on. These are planned features and projects — things may evolve as development progresses.</p>
+        </div>
+
+        <section class="section">
+            <div class="news-grid">
+
+                <!-- Post 1: Pets -->
+                <article class="news-card">
+                    <div class="news-card-header">
+                        <span class="news-icon">🐾</span>
+                        <span class="news-tag upcoming">Upcoming</span>
+                        <span class="news-tag donator">Donator</span>
+                        <span class="news-date">March 2026</span>
+                    </div>
+                    <div class="news-card-body">
+                        <h2>Pet System — Coming to Heir of Gaia</h2>
+                        <p>We're excited to share that we're planning to introduce a pet system to the server. Pets will be companions that follow you around the world and add a personal touch to your experience.</p>
+                        <div class="news-highlight">
+                            <p>We're planning to offer a selection of pets available to all players, with exclusive and premium pets reserved for our donator ranks as a thank-you for supporting the server.</p>
+                        </div>
+                        <p>More details on which pets will be available, how to obtain them, and what donator-exclusive options will look like are still being worked out. We'll share more as the project takes shape — stay tuned.</p>
+                    </div>
+                </article>
+
+                <!-- Post 2: Mounts -->
+                <article class="news-card">
+                    <div class="news-card-header">
+                        <span class="news-icon">🐴</span>
+                        <span class="news-tag upcoming">Upcoming</span>
+                        <span class="news-date">March 2026</span>
+                    </div>
+                    <div class="news-card-body">
+                        <h2>Mount System — Custom Rides Are on the Way</h2>
+                        <p>One of our bigger upcoming projects is a full mount system. We want to give players the ability to ride custom mounts across the world of Orbis, and we're approaching this from two directions.</p>
+                        <div class="news-highlight">
+                            <p>We'll be pulling in mounts from an existing mod as a foundation, while also developing our own home-made custom mounts unique to Heir of Gaia.</p>
+                        </div>
+                        <p>The goal is to have a varied roster — some familiar, some completely original. Our custom mounts will be designed specifically for the server's lore and aesthetic, so expect something you won't find anywhere else.</p>
+                        <p>This is still in early planning, but it's a project we're genuinely excited about. More updates will follow as development moves forward.</p>
+                    </div>
+                </article>
+
+                <!-- Post 3: Economy / NPC Shops -->
+                <article class="news-card">
+                    <div class="news-card-header">
+                        <span class="news-icon">💰</span>
+                        <span class="news-tag economy">Economy</span>
+                        <span class="news-date">March 2026</span>
+                    </div>
+                    <div class="news-card-body">
+                        <h2>Economy & NPC Shops — Building a Healthy Market</h2>
+                        <p>Getting the economy right is one of our top priorities. Our long-term vision is a player-driven market where trading between players is the main way to earn and spend money — but we know that takes time to develop organically.</p>
+                        <div class="news-highlight">
+                            <p>To give players a reliable way to earn money during the early phase of the server, we're implementing NPC shops with fixed buy and sell prices. We're currently building out a price list to make sure trading feels fair and balanced from day one.</p>
+                        </div>
+                        <p>We want the NPC shops to act as a safety net, not a shortcut — prices will be set to encourage player-to-player trading while still giving everyone a way to get started and work toward their rank progression.</p>
+                        <p>We're open to suggestions on this. If you have thoughts on pricing, items, or how the economy should work, feel free to reach out on Discord. Community input will help us get this right.</p>
+                    </div>
+                </article>
+
+            </div>
+        </section>
+    </main>
+
+    <footer class="footer">
+        <div class="container">
+            <p>&copy; 2026 Heir of Gaia. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script src="js/script.js"></script>
+</body>
+</html>
