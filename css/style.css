@@ -110,6 +110,27 @@ body {
     transition: 0.3s;
 }
 
+/* Discord Icon */
+.discord-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--text-secondary);
+    transition: all 0.3s ease;
+    margin-left: 1rem;
+    padding: 0.5rem;
+}
+
+.discord-icon:hover {
+    color: var(--secondary-color);
+    transform: scale(1.1);
+}
+
+.discord-icon svg {
+    width: 20px;
+    height: 20px;
+}
+
 /* Hero Section */
 .hero {
     position: relative;
