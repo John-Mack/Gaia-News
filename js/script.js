@@ -33,9 +33,9 @@ if (navToggle) {
 function copyIP() {
     const ipElement = document.getElementById('serverIP');
     const ip = ipElement.textContent;
+    const btn = document.querySelector('.copy-btn');
     
     navigator.clipboard.writeText(ip).then(() => {
-        const btn = event.target;
         const originalText = btn.textContent;
         btn.textContent = 'Copied!';
         btn.style.background = '#4caf50';
