@@ -108,18 +108,26 @@ function createParticles() {
     const hero = document.querySelector('.hero');
     if (!hero) return;
 
-    for (let i = 0; i < 20; i++) {
+    for (let i = 0; i < 600; i++) {
         const particle = document.createElement('div');
+        const size = Math.random() * 4 + 1;
+        const duration = 6 + Math.random() * 14;
+        const delay = Math.random() * 8;
+        const opacity = 0.3 + Math.random() * 0.7;
+        const hue = Math.random() > 0.5 ? '212, 175, 55' : '139, 69, 19';
+
         particle.className = 'particle';
         particle.style.cssText = `
             position: absolute;
-            width: 2px;
-            height: 2px;
-            background: rgba(212, 175, 55, 0.5);
+            width: ${size}px;
+            height: ${size}px;
+            background: rgba(${hue}, ${opacity});
             border-radius: 50%;
             left: ${Math.random() * 100}%;
             top: ${Math.random() * 100}%;
-            animation: float ${5 + Math.random() * 10}s infinite ease-in-out;
+            opacity: 0;
+            animation: float${i % 3} ${duration}s ${delay}s infinite ease-in-out;
+            box-shadow: 0 0 ${size * 3}px rgba(${hue}, 0.6);
         `;
         hero.appendChild(particle);
     }
@@ -127,18 +135,27 @@ function createParticles() {
 
 // Add CSS animation for particles
 const style = document.createElement('style');
+const drift0 = (Math.random() * 100 - 50).toFixed(0);
+const drift1 = (Math.random() * 100 - 50).toFixed(0);
+const drift2 = (Math.random() * 100 - 50).toFixed(0);
 style.textContent = `
-    @keyframes float {
-        0%, 100% {
-            transform: translateY(0) translateX(0);
-            opacity: 0;
-        }
-        50% {
-            opacity: 1;
-        }
-        100% {
-            transform: translateY(-100px) translateX(${Math.random() * 100 - 50}px);
-        }
+    @keyframes float0 {
+        0%   { transform: translateY(0) translateX(0); opacity: 0; }
+        15%  { opacity: 1; }
+        85%  { opacity: 0.8; }
+        100% { transform: translateY(-140px) translateX(${drift0}px); opacity: 0; }
+    }
+    @keyframes float1 {
+        0%   { transform: translateY(0) translateX(0) scale(1); opacity: 0; }
+        20%  { opacity: 1; }
+        80%  { opacity: 0.6; }
+        100% { transform: translateY(-180px) translateX(${drift1}px) scale(1.5); opacity: 0; }
+    }
+    @keyframes float2 {
+        0%   { transform: translateY(0) translateX(0) rotate(0deg); opacity: 0; }
+        10%  { opacity: 1; }
+        90%  { opacity: 0.9; }
+        100% { transform: translateY(-120px) translateX(${drift2}px) rotate(180deg); opacity: 0; }
     }
 `;
 document.head.appendChild(style);
