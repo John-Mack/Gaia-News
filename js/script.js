@@ -181,3 +181,184 @@ window.addEventListener('load', () => {
 });
 
 console.log('Heir of Gaia - Website loaded successfully!');
+
+
+// ===== IMAGE CAROUSEL FUNCTIONALITY =====
+
+// Gallery images configuration
+const galleryImages = [
+    'gallery/image1.png',
+    'gallery/image2.png',
+    'gallery/image3.png',
+    'gallery/image4.png',
+    'gallery/image5.png',
+    'gallery/image6.png',
+    'gallery/image7.png'
+    // Add more images as needed
+];
+
+let currentIndex = 0;
+
+// Initialize carousel
+function initCarousel() {
+    const carouselTrack = document.getElementById('carouselTrack');
+    if (!carouselTrack) return;
+
+    // Clear existing items
+    carouselTrack.innerHTML = '';
+
+    // Create carousel items
+    galleryImages.forEach((imagePath, index) => {
+        const item = document.createElement('div');
+        item.className = 'carousel-item';
+        if (index === 0) item.classList.add('active');
+        
+        const img = document.createElement('img');
+        img.src = imagePath;
+        img.alt = `Gallery image ${index + 1}`;
+        img.onerror = function() {
+            // Fallback if image doesn't exist
+            this.src = 'images/placeholder.png';
+        };
+        
+        item.appendChild(img);
+        item.onclick = () => openImageModal(imagePath);
+        carouselTrack.appendChild(item);
+    });
+
+    updateCarousel();
+}
+
+// Scroll carousel
+function scrollCarousel(direction) {
+    const items = document.querySelectorAll('.carousel-item');
+    if (items.length === 0) return;
+
+    // Remove active class from current item
+    items[currentIndex].classList.remove('active');
+
+    // Update index
+    currentIndex += direction;
+    
+    // Loop around
+    if (currentIndex < 0) {
+        currentIndex = items.length - 1;
+    } else if (currentIndex >= items.length) {
+        currentIndex = 0;
+    }
+
+    // Add active class to new item
+    items[currentIndex].classList.add('active');
+
+    updateCarousel();
+}
+
+// Update carousel position
+function updateCarousel() {
+    const track = document.getElementById('carouselTrack');
+    const items = document.querySelectorAll('.carousel-item');
+    if (!track || items.length === 0) return;
+
+    // Calculate offset to center the active item
+    const activeItem = items[currentIndex];
+    const trackWidth = track.offsetWidth;
+    const itemWidth = activeItem.offsetWidth;
+    const itemOffset = activeItem.offsetLeft;
+    
+    // Center the active item
+    const offset = -(itemOffset - (trackWidth / 2) + (itemWidth / 2));
+    track.style.transform = `translateX(${offset}px)`;
+}
+
+// Open image in modal
+function openImageModal(imagePath) {
+    const modal = document.getElementById('imageModal');
+    const modalImg = document.getElementById('modalImage');
+    
+    modal.classList.add('show');
+    modalImg.src = imagePath;
+    
+    // Prevent body scroll when modal is open
+    document.body.style.overflow = 'hidden';
+}
+
+// Close modal
+function closeModal() {
+    const modal = document.getElementById('imageModal');
+    modal.classList.remove('show');
+    
+    // Restore body scroll
+    document.body.style.overflow = '';
+}
+
+// Close modal on Escape key
+document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape') {
+        closeModal();
+    }
+});
+
+// Prevent modal close when clicking on image
+document.getElementById('modalImage')?.addEventListener('click', (e) => {
+    e.stopPropagation();
+});
+
+// Auto-scroll carousel (optional)
+let autoScrollInterval;
+
+function startAutoScroll() {
+    autoScrollInterval = setInterval(() => {
+        scrollCarousel(1);
+    }, 5000); // Change image every 5 seconds
+}
+
+function stopAutoScroll() {
+    clearInterval(autoScrollInterval);
+}
+
+// Initialize carousel when DOM is ready
+document.addEventListener('DOMContentLoaded', () => {
+    if (document.getElementById('carouselTrack')) {
+        initCarousel();
+        
+        // Optional: Start auto-scroll
+        startAutoScroll();
+        
+        // Stop auto-scroll on user interaction
+        document.querySelector('.carousel-container')?.addEventListener('mouseenter', stopAutoScroll);
+        document.querySelector('.carousel-container')?.addEventListener('mouseleave', startAutoScroll);
+    }
+});
+
+// Update carousel on window resize
+window.addEventListener('resize', () => {
+    updateCarousel();
+});
+
+// Touch/swipe support for mobile
+let touchStartX = 0;
+let touchEndX = 0;
+
+document.querySelector('.carousel-wrapper')?.addEventListener('touchstart', (e) => {
+    touchStartX = e.changedTouches[0].screenX;
+});
+
+document.querySelector('.carousel-wrapper')?.addEventListener('touchend', (e) => {
+    touchEndX = e.changedTouches[0].screenX;
+    handleSwipe();
+});
+
+function handleSwipe() {
+    const swipeThreshold = 50;
+    const diff = touchStartX - touchEndX;
+    
+    if (Math.abs(diff) > swipeThreshold) {
+        if (diff > 0) {
+            scrollCarousel(1); // Swipe left
+        } else {
+            scrollCarousel(-1); // Swipe right
+        }
+    }
+}
+
+console.log('Image carousel initialized!');

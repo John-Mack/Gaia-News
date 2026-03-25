@@ -1045,3 +1045,199 @@ body {
 .commands-note strong {
     color: var(--secondary-color);
 }
+
+
+/* Image Carousel Styles */
+.carousel-container {
+    position: absolute;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 90%;
+    max-width: 800px;
+    z-index: 10;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.carousel-wrapper {
+    flex: 1;
+    overflow: hidden;
+    border-radius: 10px;
+    background: rgba(10, 10, 10, 0.5);
+    backdrop-filter: blur(10px);
+    padding: 1rem;
+}
+
+.carousel-track {
+    display: flex;
+    gap: 1rem;
+    transition: transform 0.5s ease;
+    align-items: center;
+}
+
+.carousel-item {
+    flex-shrink: 0;
+    width: 200px;
+    height: 120px;
+    border-radius: 8px;
+    overflow: hidden;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    border: 2px solid transparent;
+    opacity: 0.6;
+}
+
+.carousel-item img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+}
+
+.carousel-item.active {
+    width: 280px;
+    height: 168px;
+    border-color: var(--secondary-color);
+    box-shadow: 0 0 20px rgba(212, 175, 55, 0.5);
+    opacity: 1;
+    transform: scale(1.05);
+}
+
+.carousel-item:hover {
+    opacity: 1;
+    border-color: var(--primary-color);
+}
+
+.carousel-btn {
+    background: rgba(139, 69, 19, 0.8);
+    color: var(--secondary-color);
+    border: 2px solid var(--primary-color);
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    font-size: 1.5rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+}
+
+.carousel-btn:hover {
+    background: var(--primary-color);
+    color: white;
+    transform: scale(1.1);
+}
+
+.carousel-btn:active {
+    transform: scale(0.95);
+}
+
+/* Image Zoom Modal */
+.image-modal {
+    display: none;
+    position: fixed;
+    z-index: 9999;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.95);
+    animation: fadeIn 0.3s ease;
+}
+
+.image-modal.show {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+.modal-content {
+    max-width: 90%;
+    max-height: 90%;
+    object-fit: contain;
+    border-radius: 10px;
+    box-shadow: 0 0 50px rgba(212, 175, 55, 0.3);
+    animation: zoomIn 0.3s ease;
+}
+
+@keyframes zoomIn {
+    from {
+        transform: scale(0.7);
+        opacity: 0;
+    }
+    to {
+        transform: scale(1);
+        opacity: 1;
+    }
+}
+
+.modal-close {
+    position: absolute;
+    top: 20px;
+    right: 40px;
+    color: var(--secondary-color);
+    font-size: 50px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.modal-close:hover {
+    color: white;
+    transform: scale(1.2);
+}
+
+/* Responsive Carousel */
+@media (max-width: 768px) {
+    .carousel-container {
+        width: 95%;
+        bottom: 10px;
+    }
+
+    .carousel-item {
+        width: 150px;
+        height: 90px;
+    }
+
+    .carousel-item.active {
+        width: 200px;
+        height: 120px;
+    }
+
+    .carousel-btn {
+        width: 35px;
+        height: 35px;
+        font-size: 1.2rem;
+    }
+
+    .modal-close {
+        top: 10px;
+        right: 20px;
+        font-size: 40px;
+    }
+}
+
+@media (max-width: 480px) {
+    .carousel-item {
+        width: 120px;
+        height: 72px;
+    }
+
+    .carousel-item.active {
+        width: 160px;
+        height: 96px;
+    }
+
+    .carousel-wrapper {
+        padding: 0.5rem;
+    }
+}

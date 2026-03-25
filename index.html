@@ -42,7 +42,24 @@
                 <button class="copy-btn" onclick="copyIP()">Copy</button>
             </div>
         </div>
+        
+        <!-- Image Carousel -->
+        <div class="carousel-container">
+            <button class="carousel-btn carousel-btn-prev" onclick="scrollCarousel(-1)">‹</button>
+            <div class="carousel-wrapper">
+                <div class="carousel-track" id="carouselTrack">
+                    <!-- Images will be loaded dynamically from the gallery folder -->
+                </div>
+            </div>
+            <button class="carousel-btn carousel-btn-next" onclick="scrollCarousel(1)">›</button>
+        </div>
     </header>
+
+    <!-- Image Zoom Modal -->
+    <div id="imageModal" class="image-modal" onclick="closeModal()">
+        <span class="modal-close">&times;</span>
+        <img class="modal-content" id="modalImage">
+    </div>
 
     <main class="container">
         <section class="section">
