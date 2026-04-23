@@ -93,6 +93,47 @@
         .news-icon {
             font-size: 1.8rem;
         }
+
+        .news-filters {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.6rem;
+            max-width: 900px;
+            margin: 0 auto 2rem;
+        }
+
+        .filter-btn {
+            font-size: 0.78rem;
+            font-weight: bold;
+            padding: 0.35rem 1rem;
+            border-radius: 20px;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            cursor: pointer;
+            border: 1px solid var(--border-color);
+            background: transparent;
+            color: var(--text-secondary);
+            transition: all 0.2s ease;
+        }
+
+        .filter-btn:hover,
+        .filter-btn.active {
+            color: #fff;
+            background: var(--primary-color);
+            border-color: var(--primary-color);
+        }
+
+        .filter-btn[data-filter="all"].active  { background: var(--primary-color); border-color: var(--primary-color); }
+        .filter-btn[data-filter="update"].active  { background: #42a5f5; border-color: #42a5f5; }
+        .filter-btn[data-filter="economy"].active { background: var(--success-color); border-color: var(--success-color); }
+        .filter-btn[data-filter="upcoming"].active { background: var(--secondary-color); border-color: var(--secondary-color); color: #0a0a0a; }
+        .filter-btn[data-filter="wip"].active     { background: #ffa726; border-color: #ffa726; }
+        .filter-btn[data-filter="donator"].active { background: #d464c8; border-color: #d464c8; }
+        .filter-btn[data-filter="released"].active { background: #4caf50; border-color: #4caf50; }
+
+        .news-card.hidden {
+            display: none;
+        }
     </style>
 </head>
 <body>
@@ -129,10 +170,19 @@
         </div>
 
         <section class="section">
+            <div class="news-filters">
+                <button class="filter-btn active" data-filter="all">All</button>
+                <button class="filter-btn" data-filter="update">Update</button>
+                <button class="filter-btn" data-filter="economy">Economy</button>
+                <button class="filter-btn" data-filter="upcoming">Upcoming</button>
+                <button class="filter-btn" data-filter="wip">In Progress</button>
+                <button class="filter-btn" data-filter="donator">Donator</button>
+                <button class="filter-btn" data-filter="released">StreamDeck</button>
+            </div>
             <div class="news-grid">
 
                 <!-- Post: Leveling System Rework -->
-                <article class="news-card">
+                <article class="news-card" data-tags="update">
                     <div class="news-card-header">
                         <span class="news-icon">⚔️</span>
                         <span class="news-tag update">Update</span>
@@ -149,7 +199,7 @@
                 </article>
 
                 <!-- Post: Playtime Rewards Update -->
-                <article class="news-card">
+                <article class="news-card" data-tags="update economy">
                     <div class="news-card-header">
                         <span class="news-icon">⏱️</span>
                         <span class="news-tag update">Update</span>
@@ -167,7 +217,7 @@
                 </article>
 
                 <!-- Post: Jobs Buff + New Crafting Job -->
-                <article class="news-card">
+                <article class="news-card" data-tags="update economy">
                     <div class="news-card-header">
                         <span class="news-icon">🛠️</span>
                         <span class="news-tag update">Update</span>
@@ -185,7 +235,7 @@
                 </article>
 
                 <!-- Post: Voting System Rework -->
-                <article class="news-card">
+                <article class="news-card" data-tags="update">
                     <div class="news-card-header">
                         <span class="news-icon">🗳️</span>
                         <span class="news-tag update">Update</span>
@@ -202,7 +252,7 @@
                 </article>
 
                 <!-- Post: Loot Bags WIP -->
-                <article class="news-card">
+                <article class="news-card" data-tags="wip">
                     <div class="news-card-header">
                         <span class="news-icon">🎒</span>
                         <span class="news-tag wip">In Progress</span>
@@ -219,7 +269,7 @@
                 </article>
 
                 <!-- Post: Quest Giver NPCs WIP -->
-                <article class="news-card">
+                <article class="news-card" data-tags="wip">
                     <div class="news-card-header">
                         <span class="news-icon">📜</span>
                         <span class="news-tag wip">In Progress</span>
@@ -236,7 +286,7 @@
                 </article>
 
                 <!-- Post 0: StreamDeck -->
-                <article class="news-card">
+                <article class="news-card" data-tags="released">
                     <div class="news-card-header">
                         <span class="news-icon">🎛️</span>
                         <span class="news-tag" style="background: rgba(76,175,80,0.15); color: #4caf50; border: 1px solid #4caf50;">Released</span>
@@ -256,7 +306,7 @@
                 </article>
 
                 <!-- Post 1: Pets -->
-                <article class="news-card">
+                <article class="news-card" data-tags="upcoming donator">
                     <div class="news-card-header">
                         <span class="news-icon">🐾</span>
                         <span class="news-tag upcoming">Upcoming</span>
@@ -274,7 +324,7 @@
                 </article>
 
                 <!-- Post 2: Mounts -->
-                <article class="news-card">
+                <article class="news-card" data-tags="upcoming">
                     <div class="news-card-header">
                         <span class="news-icon">🐴</span>
                         <span class="news-tag upcoming">Upcoming</span>
@@ -292,7 +342,7 @@
                 </article>
 
                 <!-- Post 3: Economy / NPC Shops -->
-                <article class="news-card">
+                <article class="news-card" data-tags="economy">
                     <div class="news-card-header">
                         <span class="news-icon">💰</span>
                         <span class="news-tag economy">Economy</span>
@@ -321,5 +371,21 @@
     </footer>
 
     <script src="js/script.js"></script>
+    <script>
+        const filterBtns = document.querySelectorAll('.filter-btn');
+        const cards = document.querySelectorAll('.news-card');
+
+        filterBtns.forEach(btn => {
+            btn.addEventListener('click', () => {
+                filterBtns.forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+                const filter = btn.dataset.filter;
+                cards.forEach(card => {
+                    const tags = (card.dataset.tags || '').split(' ');
+                    card.classList.toggle('hidden', filter !== 'all' && !tags.includes(filter));
+                });
+            });
+        });
+    </script>
 </body>
 </html>
