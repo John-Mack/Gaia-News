@@ -61,6 +61,8 @@ body {
     font-weight: bold;
     color: var(--secondary-color);
     text-shadow: 0 0 10px rgba(212, 175, 55, 0.5);
+    text-decoration: none;
+    cursor: pointer;
 }
 
 .nav-menu {
